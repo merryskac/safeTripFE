@@ -14,7 +14,7 @@ connectToMongoDB()
 
 app.use(express.json())
 app.use(cors({
-  origin: ['http://172.20.10.3:5173', 'https://pls-phi.vercel.app']
+  origin: ['http://172.20.10.3:5173', 'https://pls-cbxz.vercel.app', 'wss://pls-phi.vercel.app']
 }))
 app.use('/api/users', userRoute)
 
