@@ -13,6 +13,7 @@ const UserForm = () => {
 		const input = api.post('/users', formData).then((data) => {
 			if (data.statusText === 'OK') {
 				console.log(data);
+
 				navigate(`/track/detail/${data.data.user._id}`,{
 					state: {
 						data: data.data
@@ -21,7 +22,7 @@ const UserForm = () => {
 			}
 		});
 
-		navigate('/track/:id');
+		// navigate('/track/:id');
 	};
 	return (
 		<div>
