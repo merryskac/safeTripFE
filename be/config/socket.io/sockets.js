@@ -3,7 +3,7 @@ import { Server, Socket } from 'socket.io'
 export const socketIo = (expressServer) =>{
   const io = new Server(expressServer, {
     cors: {
-      origin: ['http://localhost:5173', '127.0.0.1:5173', 'http://172.20.10.3:5173', 'wss://pls-cbxz.vercel.app']
+      origin: ['http://localhost:5173', '127.0.0.1:5173', 'http://172.20.10.3:5173', 'https://pls-cbxz.vercel.app']
     }
   })
   
