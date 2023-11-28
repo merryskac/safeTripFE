@@ -21,7 +21,7 @@ const UserForm = () => {
 			}
 		});
 
-		// navigate('/track/:id');
+		navigate('/track/:id');
 	};
 	return (
 		<div>
