@@ -28,7 +28,7 @@ export const createNewSession = async (req, res) => {
 
 export const tokenCheck = async (req, res) => {
 	try{
-		console.log(req.body)
+		// console.log(req.body)
 		const token = req.body.token
 		if(!token){
 			return res.json({
@@ -36,7 +36,6 @@ export const tokenCheck = async (req, res) => {
 			})
 		}
 		const verify = Jwt.verify(token, process.env.JWT_KEY)
-		console.log(verify)
 		return res.json(verify)
 
 	}catch(error){

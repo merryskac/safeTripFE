@@ -9,9 +9,11 @@ const UserForm = () => {
 
 	const formSubmit = (e) => {
 		e.preventDefault();
+		console.log('input')
 
 		const input = api.post('/users', formData).then((data) => {
-			if (data.statusText === 'OK') {
+			console.log(data)
+			if (data.status === 200) {
 				console.log(data);
 
 				navigate(`/track/detail/${data.data.user._id}`,{
