@@ -11,7 +11,7 @@ export const SocketProvider = ({ id, children }) => {
   const [socket, setSocket] = useState();
 
   useEffect(() => {
-    const newSocket = io(`${import.meta.env.BE_URL}`, {
+    const newSocket = io(`${import.meta.env.VITE_BE_URL}`, {
       query: { id },
     });
     setSocket(newSocket);

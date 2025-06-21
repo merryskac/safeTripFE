@@ -3,7 +3,7 @@ import { io } from "socket.io-client";
 // export const socket = io();
 export const socketFunction = (id) => {
   console.log("running");
-  const initSocket = io(`${import.meta.env.BE_URL}`, {
+  const initSocket = io(`${import.meta.env.VITE_BE_URL}`, {
     query: { id },
   });
 
