@@ -1,33 +1,38 @@
-import { Server, Socket } from 'socket.io'
+import { Server, Socket } from "socket.io";
 
-export const socketIo = (expressServer) =>{
+export const socketIo = (expressServer) => {
   const io = new Server(expressServer, {
     cors: {
-      origin: ['http://localhost:5173', '127.0.0.1:5173', 'http://172.20.10.3:5173', 'https://pls-cbxz.vercel.app', 'https://3617-119-235-25-178.ngrok-free.app', 'tcp://0.tcp.ap.ngrok.io:12315']
-    }
-  })
-  
-  io.on('connection', socket=>{
-    console.log(socket.id)
-    socket.emit('message', 'halo')
+      origin: ["http://localhost:5173", "127.0.0.1:5173"],
+    },
+  });
 
-    socket.on('join-room', (clientId, message)=>{
-      console.log(message + clientId)
-      socket.join(clientId)
-    })
+  io.on("connection", (socket) => {
+    const id = socket.handshake.query.id;
+    socket.join(id);
+    console.log(id);
 
-    socket.on('client-coordinate',(data, clientId)=>{
-      socket.to(clientId).emit('watcher-coordinate', data)
-      console.log(data)
-      console.log('client: '+clientId)
-    })
-  
-    socket.on('position',(data)=>{
-      console.log(data)
-    })
-  
-    socket.on('disconnect',()=>{
-      console.log('disconnected')
-    })
-  })
-}
+    socket.on("join-room", (clientId, message) => {
+      // console.log(message + clientId)
+      socket.join(clientId);
+    });
+
+    socket.on("watcher-join", (watcherName, roomId) => {
+      // console.log(watcherName)
+      socket.to(roomId).emit("watcher-joining", socket.id, watcherName);
+    });
+
+    socket.on("client-coordinate", (data, clientId) => {
+      console.log(data);
+      socket.to(clientId).emit("watcher-coordinate", data);
+      // console.log(data)
+      // console.log('client: '+clientId)
+    });
+
+    socket.on("disconnect", (reason) => {
+      console.log(socket.id + " disconnect due to " + reason);
+      socket.broadcast.emit("watcher-disconnect", socket.id);
+      // socket.off()
+    });
+  });
+};

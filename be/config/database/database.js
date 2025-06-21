@@ -1,13 +1,16 @@
 import mongoose from "mongoose";
 
-export const connectToMongoDB = async() =>{
-  try{
-    await mongoose.connect('mongodb://127.0.0.1:27017/watchTrip', {
-      useNewUrlParser: true
-    });
-  
-    console.log('DB is connected...')
-  }catch(error){
-    console.log(error.message)
+export const connectToMongoDB = async () => {
+  try {
+    await mongoose.connect(
+      "mongodb+srv://admin:admin@cluster0.ashjo.mongodb.net/watchTrip?retryWrites=true&w=majority&appName=Cluster0",
+      {
+        useNewUrlParser: true,
+      }
+    );
+
+    console.log("DB is connected...");
+  } catch (error) {
+    console.log(error.message);
   }
-}
+};

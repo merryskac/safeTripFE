@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+  frontend:
+    build:
+      context: ./fe/watch-a-trip
+      dockerfile: .dockerfile
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./fe/watch-a-trip:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+    env_file:
+      - ./fe/watch-a-trip/.env
+
+  backend:
+    build:
+      context: ./be
+      dockerfile: .dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./be:/app
+      - /app/node_modules
+    env_file:
+      - ./be/.env

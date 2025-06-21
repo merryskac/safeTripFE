@@ -3,7 +3,7 @@ import { io } from "socket.io-client";
 // export const socket = io();
 export const socketFunction = (id) => {
   console.log("running");
-  const initSocket = io("http://localhost:3000", {
+  const initSocket = io(`${import.meta.env.BE_URL}`, {
     query: { id },
   });
 
