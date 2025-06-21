@@ -3,4 +3,4 @@ build
 .git
 Dockerfile*
 .dockerignore
-.env
+**/.env
