@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { MapContainer, Marker, TileLayer } from 'react-leaflet';
 import { Helmet } from 'react-helmet';
 import UserForm from './userForm';
+// import { noSleep } from '../axios/nosleep/nosleep';
 
 const Track = () => {
 	const [myCurrentLocation, setMyCurrentLocation] = useState({});
@@ -12,6 +13,8 @@ const Track = () => {
 	const markerRef = useRef(0);
 	const mapRef = useRef(0);
 	let errorTimer;
+
+	sessionStorage.clear()
 
 	const getLocation = new Promise((resolve, reject) => {
 		{
@@ -46,7 +49,7 @@ const Track = () => {
 	const getCoordAndLoc = () => {
 		getLocation.then(
 			(data) => {
-				mapRef.current.setView([data.lat, data.lng])
+				mapRef.current.setView([data.lat, data.lng]);
 				console.log(data);
 				fetch(
 					`https://us1.locationiq.com/v1/reverse?key=pk.4dd09f0d7cfb928a5e9d242ebbcfe7d9&lat=${data.lat}&lon=${data.lng}&format=json&_gl=1*zfjwhb*_ga*MTg3MDA2ODUzNi4xNzAwMTk1Njkw*_ga_TRV5GF9KFC*MTcwMDE5NTY5MC4xLjEuMTcwMDE5NTc5MS4wLjAuMA..`
@@ -65,7 +68,7 @@ const Track = () => {
 	};
 
 	useEffect(() => {
-		getCoordAndLoc()
+		getCoordAndLoc();
 	}, []);
 
 	return (
@@ -99,28 +102,30 @@ const Track = () => {
 								Mendapatkan lokasi anda
 							</p>
 						)}
-						{ <MapContainer
-							center={
-								myCurrentLocation.lat
-									? [myCurrentLocation.lng, myCurrentLocation.lat]
-									: [-5, 119]
-							}
-							ref={mapRef}
-							zoom={17}
-							style={{ height: '500px' }}>
-							<TileLayer
-								attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-								url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-							/>
-							<Marker
-								// icon={'marker-icon-2x.png'}
-								ref={markerRef}
-								position={[
-									myCurrentLocation.lat ? myCurrentLocation.lat : 0,
-									myCurrentLocation.lng ? myCurrentLocation.lng : 0,
-								]}
-							/>
-						</MapContainer>}
+						{
+							<MapContainer
+								center={
+									myCurrentLocation.lat
+										? [myCurrentLocation.lng, myCurrentLocation.lat]
+										: [-5, 119]
+								}
+								ref={mapRef}
+								zoom={17}
+								style={{ height: '500px' }}>
+								<TileLayer
+									attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+									url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+								/>
+								<Marker
+									// icon={'marker-icon-2x.png'}
+									ref={markerRef}
+									position={[
+										myCurrentLocation.lat ? myCurrentLocation.lat : 0,
+										myCurrentLocation.lng ? myCurrentLocation.lng : 0,
+									]}
+								/>
+							</MapContainer>
+						}
 						<button
 							className="bg-sky-400 p-3 rounded-md my-3 text-white"
 							onClick={getCoordAndLoc}>
@@ -135,7 +140,7 @@ const Track = () => {
 					</div>
 					<div className="xl:px-7 flex-none xl:w-[50%]">
 						<hr className="xl:invisible md:visible mb-2" />
-						<UserForm/>
+						<UserForm />
 					</div>
 				</div>
 			</div>

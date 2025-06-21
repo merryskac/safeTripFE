@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Homepage = () => {
   const navigate = useNavigate();
+	sessionStorage.clear()
 	return (
 		<div className="font-['poppins']">
 			<Navbar />
